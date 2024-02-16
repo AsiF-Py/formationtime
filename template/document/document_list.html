@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<main class="h-full pb-16 overflow-y-auto">
+    <div class="container px-6 mx-auto grid">
+        <!-- Cards with title -->
+        <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            Document Status
+        </h4>
+
+        <div class="grid gap-6 mb-8 md:grid-cols-2">
+            {% for document in document_list%}
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="flex justify-between">
+                    <h4 class="mb-6 font-semibold text-gray-600 dark:text-gray-300">
+                        {{document.title}}
+                    </h4>
+                    <div>
+                        <span
+                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            {{document.get_status_display }}
+                        </span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <div>
+                            <h1 class="mb-4 text-base font-semibold text-gray-600 dark:text-gray-300">State</h1>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{{document.state}}</p>
+                        </div>
+                        <div>
+                            <h1 class="mb-4 text-base font-semibold text-gray-600 dark:text-gray-300">Address</h1>
+                        <p class="text-sm  text-gray-600 dark:text-gray-400">{{document.address}}</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <h1 class="mb-4 text-base font-semibold text-gray-600 dark:text-gray-300">Company Name</h1>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{{document.company_name}}</p>
+                        </div>
+                        <div>
+                            <h1 class="mb-4 text-base font-semibold text-gray-600 dark:text-gray-300">Date</h1>
+                        <p class="text-sm  text-gray-600 dark:text-gray-400">{{document.date}}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-8" />
+                <div class="flex justify-between">
+                    <div>
+                        <h1 class="mb-4 text-base font-semibold text-gray-600 dark:text-gray-300">Attachment</h1>
+                    </div>
+                    <div>
+                        <a href="{%if document.attachment%}{{document.attachment.url}}{%else%}#{%endif%}" target="_blank"
+                  class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                >
+                  Download
+                </a>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+
+
+    </div>
+</main>
+{%endblock%}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+  Table with avatars
+</h4>
+<div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+  <div class="w-full overflow-x-auto">
+    <table class="w-full whitespace-no-wrap">
+      <thead>
+        <tr
+          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+          <th class="px-4 py-3">Invoice#</th>
+          <th class="px-4 py-3">Created</th>
+          <th class="px-4 py-3">Due Date</th>
+          <th class="px-4 py-3">Amount</th>
+          <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3">Attachment</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+        {% for invoice in invoice_list%}
+        <tr class="text-gray-700 dark:text-gray-400">
+          <td class="px-4 py-3">
+            <div class="flex items-center text-sm">
+              <!-- Avatar with inset shadow -->
+
+              <p class="font-semibold">{{invoice.id}}</p>
+
+            </div>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            {{invoice.created}}
+          </td>
+          <td class="px-4 py-3 text-sm">
+            {{invoice.due_date}}
+          </td>
+          <td class="px-4 py-3 text-sm">
+            ${{invoice.amount}}
+          </td>
+          <td class="px-4 py-3 text-xs">
+            <span
+              class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+              {{invoice.get_status_display}}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-sm">
+            <a target="_blank" href="{%if invoice.attachment%}{{invoice.attachment.url}}{%else%}#{%endif%}">Download</a>
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+{%endblock%}
