@@ -4,11 +4,11 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required()
 def document_list(request):
-    document_list = Document.objects.all()
+    document_list = Document.objects.filter(user=request.user)
     return render(request,'document/document_list.html',{'document_list':document_list})
 @login_required()
 def invoice_list(request):
-    invoice_list = Invoice.objects.all()
+    invoice_list = Invoice.objects.filter(user=request.user)
     return render(request,'document/invoice_list.html',{'invoice_list':invoice_list})
 
 @login_required()
@@ -20,6 +20,7 @@ def support(request):
 def create_support(request):
     if request.method == 'POST':
         problem = request.POST.get('problem')
-        Support.objects.create(user=request.user,problem=problem)
+        title = request.POST.get('title')
+        Support.objects.create(user=request.user,problem=problem,title=title)
         return redirect('support')
     return render(request,'document/create_support.html',{'support':support})

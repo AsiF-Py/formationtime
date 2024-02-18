@@ -15,6 +15,7 @@
           <th class="px-4 py-3">Due Date</th>
           <th class="px-4 py-3">Amount</th>
           <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3">Pay</th>
           <th class="px-4 py-3">Attachment</th>
         </tr>
       </thead>
@@ -44,6 +45,25 @@
               {{invoice.get_status_display}}
             </span>
           </td>
+          {%if invoice.active_pay%}
+          <td class="px-4 py-3 text-sm">
+            <a target="_blank" href="{{invoice.pay_link}}">
+              <button
+                  class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                >
+                  Pay
+                </button>
+            </a>
+          </td>
+          {%else%}
+          <td class="px-4 py-3 text-sm">
+            <button
+                  class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg opacity-50 cursor-not-allowed focus:outline-none"
+                >
+                  Pay
+                </button>
+          </td>
+          {%endif%}
           <td class="px-4 py-3 text-sm">
             <a target="_blank" href="{%if invoice.attachment%}{{invoice.attachment.url}}{%else%}#{%endif%}">Download</a>
           </td>

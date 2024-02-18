@@ -2,19 +2,17 @@ from django.shortcuts import render,redirect,HttpResponse
 from .forms import RegisterForm,LoginForm,UserProfileUpdateForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from .models import Account
+from .models import Account,Company
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_str
 from django.contrib import messages
-from django.utils.http import urlsafe_base64_decode
 # Create your views here.
 def home(request):
     return render(request,'home.html')
+@login_required
+def dashboard(request):
+    company = Company.objects.get(user=request.user)
+    return render(request,'account/dashbored.html',{'company':company})
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':

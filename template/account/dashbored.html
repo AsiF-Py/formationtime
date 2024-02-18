@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content%}
+    <div class="my-2 p-3 space-y-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+        <h1 class="text-3xl font-semibold mb-4">{{ company.company_name }}</h1>
+        <p><strong>Type:</strong> {{ company.type }}</p>
+        <p><strong>Industry:</strong> {{ company.industry }}</p>
+        <p><strong>Created At:</strong> {{ company.created_at }}</p>
+        <p><strong>Contact Phone:</strong> {{ company.contact_phone }}</p>
+        <p><strong>Company Site:</strong> <a href="{{ company.company_site }}">{{ company.company_site }}</a></p>
+        <p><strong>Country:</strong> {{ company.country }}</p>
+        <p><strong>Communication:</strong> {{ company.communication }}</p>
+        <p><strong>Allow Changes:</strong> {% if company.allow_changes %}Yes{% else %}No{% endif %}</p>
+        <p><strong>Company State:</strong> {{ company.company_state }}</p>
+        <p><strong>EIN Number:</strong> {{ company.ein_number }}</p>
+        <p><strong>SSN/ITIN Number:</strong> {{ company.ssn_itin_number }}</p>
+        <p><strong>Sale Tax ID:</strong> {{ company.sale_tax_id }}</p>
+        <p><strong>Annual Report Filing Date:</strong> {{ company.annual_report_filing_date }}</p>
+        <p><strong>IRS Corporate/Income Tax Date:</strong> {{ company.irs_corporate_income_tax_date }}</p>
+    </div>
+{%endblock%}
