@@ -16,7 +16,7 @@ class Document(models.Model):
     # address = models.TextField()
     # company_name = models.CharField(max_length=250,null=True,blank=True)
     date = models.DateField(null=True,blank=True)
-    attachment = models.FileField(upload_to='document/',null=True,blank=True)
+    # attachment = models.FileField(upload_to='document/',null=True,blank=True)
 
     def __str__(self):
         return self.title
@@ -27,6 +27,13 @@ Invoice_STATUS_CHOICES = [
         ('in_progress', 'In Progress'),
         ('cancel', 'Cancel'),
     ]
+class Attachment(models.Model):
+    document = models.ForeignKey(Document,on_delete=models.CASCADE,related_name='attachments')
+    attachment = models.FileField(upload_to='document/',null=True,blank=True)
+
+    def filename(self):
+        return self.attachment.path
+
 class Invoice(models.Model):
     id = models.CharField(primary_key=True, max_length=10,editable=False)
     user = models.ForeignKey(Account, on_delete=models.CASCADE,blank=True,null=True)

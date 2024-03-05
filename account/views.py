@@ -6,13 +6,19 @@ from .models import Account,Company
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+
 # Create your views here.
 def home(request):
     return render(request,'home.html')
 @login_required
 def dashboard(request):
-    company = Company.objects.get(user=request.user)
-    return render(request,'account/dashbored.html',{'company':company})
+    try:
+        company = Company.objects.get(user=request.user)
+        return render(request, 'account/dashbored.html', {'company': company})
+    except ObjectDoesNotExist:
+        return render(request,'account/dashbored.html')
+
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':
@@ -36,6 +42,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('profile')
     return render(request,'account/login.html',{'form':form})
+
 @login_required
 def profile(request):
     user = Account.objects.get(username=request.user.username)
